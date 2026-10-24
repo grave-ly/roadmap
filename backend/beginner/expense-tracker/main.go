@@ -146,8 +146,8 @@ func main() {
 				fmt.Println("Expense deleted successfully")
 			}
 		}
-		default:
-			fmt.Println("Please enter correct commands and flags: -h or --help for more")
-			return
+	default:
+		fmt.Println("Please enter correct commands and flags: -h or --help for more")
+		return
 	}
 }
