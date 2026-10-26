@@ -65,7 +65,7 @@ func updateTask(id int, description string) error {
 	}
 	Tasks[i].Description = description
 	Tasks[i].UpdatedAt = updateTime()
-	fmt.Printf("Task (ID: %d) updated \n", i)
+	fmt.Printf("Task (ID: %d) updated \n", id)
 	return nil
 }
 
