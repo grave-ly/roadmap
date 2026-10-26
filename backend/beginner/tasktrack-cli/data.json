@@ -1,0 +1,21 @@
+{
+ "id": 1,
+ "description": "that was lame",
+ "status": "todo",
+ "createdat": "2026-10-25 21:06:18",
+ "updatedat": "2026-10-25 21:08:06"
+}
+{
+ "id": 2,
+ "description": "halloween costume",
+ "status": "in-progress",
+ "createdat": "2026-10-25 21:06:24",
+ "updatedat": "2026-10-25 22:42:11"
+}
+{
+ "id": 3,
+ "description": "party on",
+ "status": "done",
+ "createdat": "2026-10-25 21:07:58",
+ "updatedat": "2026-10-25 22:42:41"
+}
