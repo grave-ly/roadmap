@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Unit Converter" content="width=device-width, initial-scale=1.0">
+        <title>Unit Converter</title>
+        <link rel="stylesheet" href="html/styles.css">
+    </head>
+    <body>
+        <h1>Unit Converter</h1>
+        <nav>
+            <a href="/length">Length</a>
+            <a href="/weight">Weight</a>
+            <a href="/temperature">Temperature</a>
+        </nav>
+            <form id="form" action="/length" method="POST">
+                <div class="container">
+                    <label for="result">Result of your calculation</label>
+                    <p>{{.}}</p>
+
+                    <button type="submit">Reset</button>
+                </div>
+            </form>
+    </body>
+</html>

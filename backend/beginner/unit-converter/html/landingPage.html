@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Unit Converter" content="width=device-width, initial-scale=1.0">
+        <title>Unit Converter</title>
+        <link rel="stylesheet" href="html/styles.css">
+    </head>
+    <body>
+        <h1>Unit Converter</h1>
+        <nav>
+            <a href="/length">Length</a>
+            <a href="/weight">Weight</a>
+            <a href="/temperature">Temperature</a>
+        </nav>
+            <form id="form" action="/result" method="POST">
+                <div class="container">
+                    <label for="unit">Enter the {{.}} to convert</label>
+                    <input type="text" id="unit" name="unit">
+
+                    <label for="cfrom">Unit to Convert from</label>
+                    <input type="text" id="cfrom" name="cfrom">
+
+                    <label for="cto">Unit to Convert to</label>
+                    <input type="text" id="cto" name="cto">
+
+                    <button type="submit">Convert</button>
+                </div>
+            </form>
+    </body>
+</html>
