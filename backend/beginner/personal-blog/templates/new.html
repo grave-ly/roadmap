@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Unit Converter" content="width=device-width, initial-scale=1.0">
+        <title>Bloooog</title>
+        <link rel="stylesheet" href="static/styles.css">
+    </head>
+    <body>
+        <main class="container">
+            <h1>New Article</h1>
+                <form action="/newArtHandler" method="post" >
+                    <input type="text" name="articleTitle" placeholder="Article Title">
+                    <input type="text" name="pubDate" placeholder="Publishing Date">
+                    <textarea name="content" rows="30" cols="40" placeholder="Content goes here"></textarea>
+                    <button type="submit">Publish</button>
+                </form>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Unit Converter" content="width=device-width, initial-scale=1.0">
+        <title>Bloooog</title>
+        <link rel="stylesheet" href="static/styles.css">
+    </head>
+    <body>
+        <main class="container">
+        <h1>Personal Blog</h1>
+            <a href="/new" class="button">+ Add</a>
+            {{range .}}
+                <h2>{{.Title}}<span>edit/delete</span></h2>
+            {{end}}
+        </main>
+    </body>
+</html>
