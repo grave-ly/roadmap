@@ -8,8 +8,15 @@
     </head>
     <body>
         <h1>Personal Blog</h1>
-            {{range .}}
-                <h2>{{.Title}}<span>{{.PubDate}}</span></h2>
-            {{end}}
+        <main class="container">
+            <section class="articles">
+                {{range .}}
+                    <article class="article">
+                        <h2>{{.Title}}</h2>
+                        <span class="pubdate">{{.PubDate}}</span>
+                    </article>
+                {{end}}
+            </section>
+        </main>
     </body>
 </html>

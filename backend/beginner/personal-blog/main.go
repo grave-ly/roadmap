@@ -8,6 +8,7 @@ import (
 	"html/template"
 	"net/http"
 	"os"
+	"path/filepath"
 )
 
 type Article struct {
@@ -16,14 +17,16 @@ type Article struct {
 	Content []byte `json:"content"`
 }
 
-var Collection []Article
-
 //go:embed templates/*
 var fs embed.FS
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/home.html"))
-	tmpl.Execute(w, Collection)
+	collection, err := populateCollection()
+	if err != nil {
+		fmt.Println("populating collection in homeHandler: ", err)
+	}
+	tmpl.Execute(w, collection)
 }
 
 func articleHandler(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +35,11 @@ func articleHandler(w http.ResponseWriter, r *http.Request) {
 
 func adminHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/admin.html"))
-	tmpl.Execute(w, Collection)
+	collection, err := populateCollection()
+	if err != nil {
+		fmt.Println("populating collection in adminHandler: ", err)
+	}
+	tmpl.Execute(w, collection)
 }
 
 func editHandler(w http.ResponseWriter, r *http.Request) {
@@ -69,25 +76,37 @@ func newArtHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/home", http.StatusSeeOther)
 }
 
-// func populateCollection() error {
-// 	entries, err := os.ReadDir("./articleStore/")
-// 	if err != nil {
-// 		return err
-// 	}
-// 	for _, entry := range entries {
-// 		file, err := os.ReadFile(entry.Name())
-// 		if err != nil {
-// 			fmt.Println(err)
-// 		}
-// 		var newArticle Article
-// 		json.Unmarshal(file, &newArticle)
-// 	}
-// 	return nil
-// }
+func populateCollection() ([]Article, error) {
+	entries, err := os.ReadDir("articleStore")
+	if err != nil {
+		return nil, err
+	}
+
+	var collection []Article
+
+	for _, entry := range entries {
+		path := filepath.Join("articleStore", entry.Name())
+		file, err := os.ReadFile(path)
+		if err != nil {
+			fmt.Println(err)
+		}
+		var newArticle Article
+		if err := json.Unmarshal(file, &newArticle); err != nil {
+			fmt.Println("unmarshal of article files: ", err)
+		}
+		collection = append(collection, newArticle)
+	}
+	return collection, nil
+}
 
 func main() {
+	fileserver := http.FileServer(http.Dir("static"))
 
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	http.Handle("/static/", http.StripPrefix("/static/", http.HandlerFunc(
+		func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Cache-Control", "no-store")
+			fileserver.ServeHTTP(w, r)
+		})))
 	http.HandleFunc("/new", newHandler)
 	http.HandleFunc("/newArtHandler", newArtHandler)
 	http.HandleFunc("/edit", editHandler)
